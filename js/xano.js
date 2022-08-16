@@ -32,7 +32,7 @@ function getMenus() {
         if (request.status >= 200 && request.status < 400) {
 
             // Map a variable called cardContainer to the Webflow element called "Cards-Container"
-            const cardContainer = document.getElementById("grid")
+            const cardContainer = document.getElementById("selection_container");
 
             // This is called a For Loop. This goes through each object being passed back from the Xano API and does something.
             // Specifically, it says "For every element in Data (response from API), call each individual item menu"
