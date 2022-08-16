@@ -1,9 +1,6 @@
 // Create a variable for the API endpoint. In this example, we're accessing Xano's API
 let xanoUrl = new URL('https://x8ki-letl-twmt.n7.xano.io/api:NHlYCKcX/');
-// Run a post request to update the menu in the Xano API
-function updateMenu(id) {
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', xanoUrl);
+
 
 
 // Define a function (set of operations) to get menu information.
