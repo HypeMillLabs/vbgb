@@ -92,9 +92,8 @@ function getMenus() {
         // Copy the card and it's style
         const card = style.cloneNode(true)
 
-        card.setAttribute('id', '');
+        card.setAttribute('id', menu['Record ID']);
         card.setAttribute('class', 'link-block');
-
 
 
 
@@ -102,6 +101,25 @@ function getMenus() {
         card.addEventListener('click', function () {
           // add the class "selected" to the card and remove the class "selected" from all other cards.
           card.classList.add('selected');
+          
+          // Store the value of the clicked card's record id in a variable called cardId
+          selectedId = card.id;
+          console.log({ 'SelectedID':selectedId },{ 'CurrentMenuID':currentMenu['Record ID'] });
+          //Unless the currently selected name is the same as the Current Menu, Find the element with id "selected_span" and set the text content to the currently selected menu's name.
+          if (selectedId !== currentMenu['Record ID']) {
+            document.getElementById('update_button').innerHTML = `Update QR Code To ${menu.Name}`;
+            document.getElementById('update_button').classList.remove('disabled');
+
+          } else {
+            document.getElementById("update_button").innerHTML = `${menu.Name} Is Already Live`;
+            document.getElementById("update_button").classList.add('disabled');
+
+          }
+        
+
+          
+                
+
 
           // Remove the class "selected" from all other cards.
           const cards = document.getElementsByClassName('link-block');
@@ -110,8 +128,9 @@ function getMenus() {
               cards[i].classList.remove('selected');
             }
           }
-          // Store the value of the clicked card's id in a variable called cardId
-          selectedId = menu['Record ID'];
+          
+
+          
           
           // Store the value of the clicked card's pdf link 
           const pdfLink = menu.PDF[0].url;
@@ -139,17 +158,18 @@ function getMenus() {
           }
         });
 
-        // For each menu, Create an image and use the menu image coming from the API
-        // const img = card.getElementsByTagName('IMG')[0]
-        // img.src = menu.banner.url + "?tpl=big:box"; // using AirTable's template engine to re-size the pictures down and make them a box
-
+        
         // For each menu, create an h3 and set the text content to the menu's title
         const h3 = card.getElementsByTagName('H5')[0]
         h3.textContent = menu.Name;
         console.log(card);
+       
 
-        // When a button with the id update_button is clicked, update Airtable.
+
+        //  When a button with the id update_button is clicked, update Airtable.
         document.getElementById('update_button').addEventListener('click', function () {
+          // If this element's class is not disabled, then do the following...
+          if (!this.classList.contains('disabled')) {
           putRequest.open('PATCH', url, true);
           putRequest.setRequestHeader('Content-Type', 'application/json');
           putRequest.setRequestHeader('Authorization', 'Bearer ' + airTableToken);
@@ -180,7 +200,9 @@ function getMenus() {
               console.log('Put Request Error');
             }
           }
-          
+        }   else {
+          console.log('Update Button Disabled');
+        }
 
 
         }); // end of update_button listener
@@ -207,3 +229,5 @@ function getMenus() {
 (function () {
   getMenus();
 })();
+
+
