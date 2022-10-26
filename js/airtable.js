@@ -27,6 +27,10 @@ function getMenus() {
   // PUT is the verb we're using to PUT data to AirTable. We can assign a variable to this verb to access it.
   let putRequest = new XMLHttpRequest();
   let selectedId = '';
+
+  // POST is the verb we're using to POST data to Rebrandly. We can assign a variable to this verb to access it.
+    let postRequest = new XMLHttpRequest();
+
   
 
   // When the 'request' or API request loads, do the following...
@@ -67,7 +71,6 @@ function getMenus() {
         embedMode: "IN_LINE",
         showPrintPDF: false
       });
-
 
 
 
@@ -134,7 +137,11 @@ function getMenus() {
           
           // Store the value of the clicked card's pdf link 
           const pdfLink = menu.PDF[0].url;
+          // make sure we can use pdfLink in future functions
+            window.pdfLink = pdfLink;
+
           // if the pdfLink is not null, then render the pdf
+          console.log('PDF Link', pdfLink);
           if (pdfLink) {
             // Render the PDF
 
@@ -168,6 +175,8 @@ function getMenus() {
 
         //  When a button with the id update_button is clicked, update Airtable.
         document.getElementById('update_button').addEventListener('click', function () {
+         
+           
           // If this element's class is not disabled, then do the following...
           if (!this.classList.contains('disabled')) {
           putRequest.open('PATCH', url, true);
@@ -193,8 +202,31 @@ function getMenus() {
           putRequest.onload = function () {
             // If the request is successful, then execute the following...
             if (putRequest.status >= 200 && putRequest.status < 400) {
-            // refresh all the elements on the page.
-            location.reload();
+            
+            // post to rebrandly to update the link
+            postRequest.open('POST', 'https://api.rebrandly.com/v1/links/81e8b41bd9464d8d898abca513dc433e', true);
+            postRequest.setRequestHeader('Content-Type', 'application/json');
+            // update the link with the new pdf link
+            postRequest.setRequestHeader("apikey", '686e4271282a42829e1a37df12b9c978');
+            postRequest.send(JSON.stringify({
+                "destination": pdfLink,
+            }));
+            // When the 'postRequest' or API request loads, do the following...
+            postRequest.onload = function () {
+                // If the request is successful, then execute the following...
+                if (postRequest.status >= 200 && postRequest.status < 400) {
+                    // refresh all the elements on the page.
+                    console.log('Rebrandly Link Updated', postRequest.responseText);
+                    // alert the user that the menu has been updated to {{name of the menu}}. when the alert is closed, refresh the page.
+                    alert(`Menu Updated To ${menu.Name}.`);
+                    location.reload();
+                } else {
+                    console.log('error');
+                }
+            }
+
+                
+
             
             } else {
               console.log('Put Request Error');
@@ -229,5 +261,4 @@ function getMenus() {
 (function () {
   getMenus();
 })();
-
 

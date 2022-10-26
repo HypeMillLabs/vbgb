@@ -1,5 +1,5 @@
 <!DOCTYPE html><!--  This site was created in Webflow. https://www.webflow.com  -->
-<!--  Last Published: Mon Aug 15 2022 22:29:02 GMT+0000 (Coordinated Universal Time)  -->
+<!--  Last Published: Tue Oct 25 2022 22:59:19 GMT+0000 (Coordinated Universal Time)  -->
 <html data-wf-page="62faabbf7b89f990bf5fdffe" data-wf-site="61bba5654fd40577054385ec">
 <head>
   <meta charset="utf-8">
@@ -19,59 +19,43 @@
 <body>
   <div class="wf-section">
     <div class="vbgb_header w-container">
-      <h1>VBGB Menu Generator</h1>
-      <h4>Current Live Menu</h4>
-      <h5 id="current_live_menu" class="heading">Heading</h5>
+      <h1 class="heading-2">VBGB Menu Generator</h1>
+      <div class="div-block-4">
+        <div class="div-block-3">
+          <h4>Current Live Menu</h4>
+          <h5 id="current_live_menu" class="heading">Heading</h5>
+        </div>
+        <div id="new_menu_block" class="div-block-3 hide">
+          <h4>New Menu</h4>
+          <h5 id="new_menu" class="heading hide">Heading</h5>
+        </div>
+        <a id="upload_button" href="https://airtable.com/shrJ4eed9n3FLND1U" class="button-2 w-node-_22faec9e-9a2a-ae3b-578f-730b64fe9904-bf5fdffe w-button">Upload A New Menu</a>
+        <link rel="prefetch" href="https://airtable.com/shrJ4eed9n3FLND1U">
+      </div>
     </div>
   </div>
   <div class="w-container">
-    <div id="grid" class="w-layout-grid grid">
-      <a id="menu_item" href="#" class="link-block w-node-_70cf8f42-de62-4e16-1201-898956781aee-bf5fdffe w-inline-block">
-        <h5 id="w-node-_8b168762-83b8-3ae0-3826-e26917c4b0d3-bf5fdffe">Heading</h5>
+    <div id="selection_container" class="w-layout-grid grid">
+      <a id="menu_item" href="#" class="link-block selected hide w-node-_70cf8f42-de62-4e16-1201-898956781aee-bf5fdffe w-inline-block">
+        <h5 id="w-node-_8b168762-83b8-3ae0-3826-e26917c4b0d3-bf5fdffe">Sample</h5>
       </a>
     </div>
     <div class="w-row">
       <div class="w-col w-col-4">
-        <div class="bold">QR CODE</div><img src="images/a59ea004.png" loading="lazy" id="qr_image" alt="" class="qr_image">
-        <a href="#" class="w-button">Download QR Code</a>
-        <a id="new_menu_button" href="#" class="upload_button w-button">Upload A New Menu</a>
+        <div class="bold bm-10">QR CODE (Click To Download)</div>
+        <a id="qr_image" href="images/a59ea004.png" target="_blank" class="w-inline-block"><img src="images/a59ea004.png" loading="lazy" alt="" class="qr_image"></a>
+        <a id="update_button" href="#" class="disabled w-button">Please Select A Menu</a>
       </div>
-      <div class="w-col w-col-8"><img src="documents/LIMITED-MENU.pdf" loading="lazy" id="pdf_space" alt="">
-        <div id="my_pdf_viewer" class="viewer_container">
-          <div id="canvas_container" class="w-embed"><canvas id="pdf_renderer"></canvas></div>
-        </div>
+      <div class="w-col w-col-8">
+        <div id="adobe-dc-view" class="viewer_container"></div>
       </div>
     </div>
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=61bba5654fd40577054385ec" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
   <script src="js/webflow.js" type="text/javascript"></script>
-  <script src="js/xano.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.0.943/pdf.min.js">
+  <script src="https://documentcloud.adobe.com/view-sdk/viewer.js"></script>
+  <script type="text/javascript" src="/js/airtable.js">
 </script>
-  <script>
-        var myState = {
-            pdf: null,
-            currentPage: 1,
-            zoom: .12
-        }
-        pdfjsLib.getDocument('./documents/LIMITED-MENU.pdf').then((pdf) => {
-            myState.pdf = pdf;
-            render();
-        });
-        function render() {
-            myState.pdf.getPage(myState.currentPage).then((page) => {
-                var canvas = document.getElementById("pdf_renderer");
-                var ctx = canvas.getContext('2d');
-                var viewport = page.getViewport(myState.zoom);
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                page.render({
-                    canvasContext: ctx,
-                    viewport: viewport
-                });
-            });
-        }
-    </script>
 </body>
 </html>
