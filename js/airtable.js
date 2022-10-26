@@ -218,7 +218,7 @@ function getMenus() {
                     // refresh all the elements on the page.
                     console.log('Rebrandly Link Updated', postRequest.responseText);
                     // alert the user that the menu has been updated to {{name of the menu}}. when the alert is closed, refresh the page.
-                    alert(`Menu Updated To ${menu.Name}.`);
+                    alert(`Menu Updated. The QR code will now point to the updated menu. However, it may take up to 5 minutes for the QR code to update if you've uploaded a new pdf.`);
                     location.reload();
                 } else {
                     console.log('error');
