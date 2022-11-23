@@ -47,8 +47,9 @@ menus.forEach(menu => {
         item.live = true;
         // updated the live data attribute on the menu item
         document.querySelector(`[data-id="${item.id}"]`).setAttribute('data-live', true);
-        // add the class "selected" to the menu item
-        document.querySelector(`[data-id="${item.id}"]`).classList.add('selected');
+        // add the class "selected" to the menu item's parent
+      
+        document.querySelector(`[data-id="${item.id}"]`).parentElement.classList.add('selected');
       } else {
         item.live = false;
       }
@@ -68,7 +69,7 @@ menus.forEach(menu => {
    // Render the PDF
 
    var adobeDCView = new AdobeDC.View({
-    clientId: "aef65b77e11d4094aaef508a445becf6",
+    clientId: "4eeb0084da814327bfa75e9ac9abc04f",
     divId: "adobe-dc-view"
   });
   adobeDCView.previewFile({
@@ -115,14 +116,14 @@ menus.forEach(menu => {
       }
       // add the selected class to the clicked menu item and remove it from all others
       menus.forEach(menu => {
-        menu.classList.remove('selected');
+        menu.parentElement.classList.remove('selected');
       });
-      this.classList.add('selected');
+      this.parentElement.classList.add('selected');
       
 
 
    var adobeDCView = new AdobeDC.View({
-    clientId: "aef65b77e11d4094aaef508a445becf6",
+    clientId: "4eeb0084da814327bfa75e9ac9abc04f",
     divId: "adobe-dc-view"
   });
   adobeDCView.previewFile({
@@ -161,12 +162,12 @@ menus.forEach(menu => {
     if (!this.classList.contains('disabled')) {
       // get the id of the currently live menu item
       let currentLiveMenuId = menuItems.filter(item => item.live === true)[0].id;
-      // get the id of the new menu item
-      let newMenuId = document.querySelector('.selected').getAttribute('data-id');
+      
+      let newMenuId = document.querySelector('.selected').firstElementChild.getAttribute('data-id');
       // get the url of the new menu item
-      let newMenuUrl = document.querySelector('.selected').getAttribute('data-url');
+      let newMenuUrl = document.querySelector('.selected').firstElementChild.getAttribute('data-url');
       // get the name of the new menu item
-      let newMenuName = document.querySelector('.selected').getAttribute('data-name');
+      let newMenuName = document.querySelector('.selected').firstElementChild.getAttribute('data-name');
       // create an object to store the new menu item id, url and name
       let newMenuItem = {
         id: newMenuId,
