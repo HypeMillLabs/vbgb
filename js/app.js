@@ -1,5 +1,3 @@
-// Create a variable for the API endpoint. In this example, we're accessing webflow's API
-let webflowUrl = new URL('https://api.webflow.com/collections/637d5346702f9a0a5dff3864/items?access_token=6b0bbf1722bdf4ae27c42a2e49184ab4d41f488391180e3f0ae2165325948a01');
 // the rebrandly api url
 let rebrandlyUrl = new URL('https://api.rebrandly.com/v1/links/81e8b41bd9464d8d898abca513dc433e');
 
